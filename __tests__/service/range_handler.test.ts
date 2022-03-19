@@ -130,7 +130,7 @@ describe("test getAvailableRanges", () => {
       
       describe("and there is no limit defined", () => {
 
-        it("should make a lowerbound and upperbound cut on the selection", () => {
+        it("should return two new selections as available ranges result", () => {
 
           const selection = {from: -8, to: 8};
           const limit = {from:undefined, to: undefined};
