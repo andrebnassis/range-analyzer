@@ -8,7 +8,8 @@
     "/dist"
   ],
   "scripts": {
-    "prebuild":"rimraf dist/",
+    "test":"jest",
+    "prebuild": "rimraf dist/",
     "build": "tsc",
     "verdaccio:up": "docker-compose -f verdaccio-docker-compose.yaml up -d",
     "verdaccio:down": "docker-compose -f verdaccio-docker-compose.yaml down -v",
@@ -29,11 +30,13 @@
   "bugs": {
     "url": "https://github.com/andrebnassis/range-analyzer/issues"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
+    "@types/jest": "^27.4.1",
     "cross-var": "^1.1.0",
+    "jest": "^27.5.1",
     "rimraf": "^3.0.2",
+    "ts-jest": "^27.1.3",
     "typescript": "^4.6.2"
   }
 }
