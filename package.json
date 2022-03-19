@@ -9,19 +9,24 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild":"rimraf dist/",
     "build": "tsc",
     "verdaccio:up": "docker-compose -f verdaccio-docker-compose.yaml up -d",
     "verdaccio:down": "docker-compose -f verdaccio-docker-compose.yaml down -v",
     "preverdaccio:publish": "cross-var $npm_execpath run verdaccio:down && cross-var $npm_execpath run verdaccio:up",
     "verdaccio:publish": "npm publish --registry http://localhost:4873/"
   },
-  "keywords": ["Typescript", "Library"],
+  "keywords": [
+    "Typescript",
+    "Library"
+  ],
   "author": "andrebnassis",
   "license": "ISC",
   "dependencies": {
     "typescript": "^4.6.2"
   },
   "devDependencies": {
-    "cross-var": "^1.1.0"
+    "cross-var": "^1.1.0",
+    "rimraf": "^3.0.2"
   }
 }

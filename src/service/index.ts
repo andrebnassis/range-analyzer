@@ -1,1 +1,1 @@
-export { hello_world} from './hello_world'
+export { getFreeRangesFromSelection } from './range_handler'
