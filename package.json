@@ -1,0 +1,27 @@
+{
+  "name": "range-analyzer",
+  "version": "0.1.0-alpha.0",
+  "description": "A library to help you analyze and manage ranges",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "verdaccio:up": "docker-compose -f verdaccio-docker-compose.yaml up -d",
+    "verdaccio:down": "docker-compose -f verdaccio-docker-compose.yaml down -v",
+    "preverdaccio:publish": "cross-var $npm_execpath run verdaccio:down && cross-var $npm_execpath run verdaccio:up",
+    "verdaccio:publish": "npm publish --registry http://localhost:4873/"
+  },
+  "keywords": ["Typescript", "Library"],
+  "author": "andrebnassis",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^4.6.2"
+  },
+  "devDependencies": {
+    "cross-var": "^1.1.0"
+  }
+}
