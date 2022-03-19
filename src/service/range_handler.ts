@@ -18,7 +18,7 @@ const sortRanges = (ranges:Array<{from:number, to:number}>) => {
   })
 };
 
-const getFreeRangesFromSelection = (
+const getAvailableRanges = (
   lockRanges:Array<IRange>, 
   selection:IRange|null, 
   limit:IRange = {from:undefined, to:undefined}
@@ -220,4 +220,4 @@ if(selection === null || lockRanges.length === 0)
 
 }
 
-export { getFreeRangesFromSelection }
+export { getAvailableRanges }

@@ -1,1 +1,1 @@
-export { getFreeRangesFromSelection } from './range_handler'
+export { getAvailableRanges } from './range_handler'
