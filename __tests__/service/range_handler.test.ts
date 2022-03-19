@@ -109,16 +109,17 @@ describe("test getAvailableRanges", () => {
 
           const lockRangesUpperBoundSample0 = [{from:8, to:undefined}];
           const lockRangesUpperBoundSample1 = [{from:10, to:undefined}, {from: 8, to:11}, {from: 7, to: 12}];
-          const lockRangesUpperBoundSample2 = [{from:10, to:undefined}, {from: 6, to: 12}, {from: 8, to:11}];
+          const lockRangesUpperBoundSample2 = [{from:10, to:undefined}, {from: 8, to:11}, {from: 7, to: 11}, {from: 7, to: 12},{from: 7, to: 13}];
+          const lockRangesUpperBoundSample3 = [{from:10, to:undefined}, {from: 6, to: 12}, {from: 8, to:11}];
 
           
           expect(getAvailableRanges(lockRangesUpperBoundSample0, selection, limit)).toEqual([{from:selection.from, to:7}]);
 
-          //TODO: Fix bug: the following test should be from: -8 to 6
-          //expect(getAvailableRanges(lockRangesUpperBoundSample1, selection, limit)).toEqual([{from:selection.from, to:6}]);
+          expect(getAvailableRanges(lockRangesUpperBoundSample1, selection, limit)).toEqual([{from:selection.from, to:6}]);
           
-          //TODO: Fix bug: the following test should be from: -8 to 5
-          //expect(getAvailableRanges(lockRangesUpperBoundSample2, selection, limit)).toEqual([{from:selection.from, to:5}]);
+          expect(getAvailableRanges(lockRangesUpperBoundSample2, selection, limit)).toEqual([{from:selection.from, to:6}]);
+
+          expect(getAvailableRanges(lockRangesUpperBoundSample3, selection, limit)).toEqual([{from:selection.from, to:5}]);
 
         })
 

@@ -1,20 +1,48 @@
 import { IRange } from "../model/IRange";
 import { isNumber } from "./number_utils";
 
+
+/*
+      Sample result:
+      
+      lockRangesProcessed: [
+        { from: 7, to: 13 },
+        { from: 7, to: 12 },
+        { from: 7, to: 11 },
+        { from: 8, to: 11 },
+        { from: 10, to: 14 }
+      ]
+ 
+*/
 const sortRanges = (ranges:Array<{from:number, to:number}>) => {
-  return ranges.sort((a, b) => {
+  return ranges.slice().sort((a, b) => {
     const aLength = a.to - a.from;
     const bLength = b.to - b.from;
-    if(a.from + aLength > b.from + bLength){
+
+    //lower from comes first
+    if(a.from > b.from){
       return 1;
     }
-    
-    if(a.from + aLength === b.from + bLength){
-      return 0;
+
+    if(a.from === b.from){
+
+      // bigger ranges comes first
+      if((a.from + aLength) > (b.from + bLength)){
+        return -1;
+      }
+
+      if((a.from + aLength) === (b.from + bLength)){
+        return 0;
+      }
+
+      if((a.from + aLength) < (b.from + bLength)){
+        return +1;
+      }
     }
 
     return -1;
 
+    
   })
 };
 
@@ -25,7 +53,7 @@ const getAvailableRanges = (
   ):Array<IRange> => {
     
     //pre-process
-
+    
     //Step 1: Guarantee only numbers || undefined
     let lockRangesProcessed:Array<IRange> = lockRanges.map(lockRange => {
 
@@ -43,7 +71,6 @@ const getAvailableRanges = (
 
     })
 
-    
     //Step 1: Guarantee only numbers || undefined
     let selectionProcessed = {
         from: !isNumber(selection?.from) ? undefined : selection?.from,
@@ -112,16 +139,14 @@ const getAvailableRanges = (
     to: !isNumber(limitProcessed.to) ? PositiveInfinity : limitProcessed.to
 }
 
-
 //Step 5: Sort LockRanges
 lockRangesProcessed = sortRanges(lockRangesProcessed as any);
 
 // console.log({selectionProcessed});
 // console.log({limitProcessed});
-// console.log({lockRangesProcessed});
+console.log({lockRangesProcessed});
 
 // Step 6: Call processFreeRangesFromSelection 
-
 const result = processFreeRangesFromSelection(lockRangesProcessed as any, selectionProcessed  as any, [], limitProcessed  as any);
 
 // Step 7: Replace Infinity representations with undefined
