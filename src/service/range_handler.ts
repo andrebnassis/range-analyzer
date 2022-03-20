@@ -139,16 +139,21 @@ const getAvailableRanges = (
     to: !isNumber(limitProcessed.to) ? PositiveInfinity : limitProcessed.to
 }
 
-//Step 5: Sort LockRanges
-lockRangesProcessed = sortRanges(lockRangesProcessed as any);
+//Step 5: Sanitize and Sort LockRanges
 
-//Step 5.1: [ALGORITHM IMPROVEMENT] Remove all lockRanges that are inner other lock ranges
+//Step 5.1: [ALGORITHM IMPROVEMENT] Remove all lockRanges that are inner other lock ranges or are outter the limit range
 lockRangesProcessed = lockRangesProcessed.filter((current,_, arr) => {
+  
   const completelyReplaceCurrentRangeSearch = arr.filter(range => ((range.from as number) <= (current.from as number)) && ((range.to as number) >= (current.to as number)) );
-  const isInnerRange = completelyReplaceCurrentRangeSearch.length > 1;
+  const isInnerFromAnotherRange = completelyReplaceCurrentRangeSearch.length > 1;
 
-  return !isInnerRange;
+  const isOutterLimitRange = ((limitProcessed.from as number) >= (current.from as number)) && ((limitProcessed.to as number) <= (current.to as number));
+
+  return !isInnerFromAnotherRange && !isOutterLimitRange;
 })
+
+//Step 5.2: Sort LockRanges
+lockRangesProcessed = sortRanges(lockRangesProcessed as any);
 
 // console.log({selectionProcessed});
 // console.log({limitProcessed});
