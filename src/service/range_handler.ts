@@ -4,7 +4,7 @@ import { isNumber } from "./number_utils";
 
 /*
       Sample result:
-      
+
       lockRangesProcessed: [
         { from: 7, to: 13 },
         { from: 7, to: 12 },
@@ -142,9 +142,17 @@ const getAvailableRanges = (
 //Step 5: Sort LockRanges
 lockRangesProcessed = sortRanges(lockRangesProcessed as any);
 
+//Step 5.1: [ALGORITHM IMPROVEMENT] Remove all lockRanges that are inner other lock ranges
+lockRangesProcessed = lockRangesProcessed.filter((current,_, arr) => {
+  const completelyReplaceCurrentRangeSearch = arr.filter(range => ((range.from as number) <= (current.from as number)) && ((range.to as number) >= (current.to as number)) );
+  const isInnerRange = completelyReplaceCurrentRangeSearch.length > 1;
+
+  return !isInnerRange;
+})
+
 // console.log({selectionProcessed});
 // console.log({limitProcessed});
-console.log({lockRangesProcessed});
+// console.log({lockRangesProcessed});
 
 // Step 6: Call processFreeRangesFromSelection 
 const result = processFreeRangesFromSelection(lockRangesProcessed as any, selectionProcessed  as any, [], limitProcessed  as any);
