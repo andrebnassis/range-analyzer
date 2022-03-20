@@ -6,9 +6,21 @@ Some use cases:
  - Timetracking applications that creates and manage intervals.
  - TextEditor applications that manage actions based on the area selected.
 
-# Using the library
 
-## getAvailableRanges
+## Installation
+https://www.npmjs.com/package/range-analyzer
+
+```bash
+
+//Using npm
+npm install range-analyzer
+
+//Using yarn
+yarn add range-analyzer
+
+```
+## Using the library
+### getAvailableRanges
 
 `getAvailableRanges(lockRanges:Array<IRange>, selection:IRange|null, limit:IRange = {from:undefined, to:undefined}) => Array<IRange>` 
 
@@ -27,7 +39,7 @@ Some use cases:
 
 > If you set the values using any `NON INTEGER` value, it will behave as `undefined`.
 
-### Parameter definitions: 
+#### Parameter definitions: 
 
 __selection__: It is the target area that you aim to select. 
 
@@ -36,7 +48,7 @@ __lockRanges__: It is the areas that cannot be selected.
 __limit__: It is the upper bound and lower bound cutoff that will be applied after having the **available ranges result**. 
 
 
-### Usage example:
+#### Usage example:
 
 ```typescript
 
@@ -56,3 +68,21 @@ const result = getAvailableRanges(lockRanges, selection, limit);
 # CONTRIBUITING
 
 Check out [CONTRIBUTING.md](CONTRIBUTING.md) to understand more about the project internals and how to contribute to it.
+
+# References
+
+To build this typescript library I had support of a free good quality material over the internet. You can check it below:
+
+## Setup a typescript library project
+
+https://www.youtube.com/watch?v=Nh9xW2-ZOEU&t=5s&ab_channel=AdyNgom
+
+https://www.youtube.com/watch?v=m6Jr6w0W1xw&ab_channel=Semmle
+
+## Setup Jest over a typescript project
+
+https://itnext.io/testing-with-jest-in-typescript-cc1cd0095421
+
+https://itnext.io/debug-your-tests-in-typescript-with-visual-studio-code-911a4cada9cd
+
+
