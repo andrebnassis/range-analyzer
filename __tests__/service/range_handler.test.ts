@@ -1,7 +1,7 @@
 import { getAvailableRanges } from "../../src/service/range_handler";
 describe("test getAvailableRanges", () => {
   
-  describe("when any lock-range does NOT include selection", () => {
+  describe("when lock-ranges does NOT intercept selection", () => {
     
     describe("if defined limit completely includes selection", () => {
 
