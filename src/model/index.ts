@@ -1,1 +1,1 @@
-export { IRange, IRangeIdentity } from './IRange'
+export { IRange } from './IRange'
