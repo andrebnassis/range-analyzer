@@ -78,24 +78,6 @@ describe("test getAvailableRanges", () => {
 
     describe("the head of a selection", () => {
 
-      describe("and there is no limit defined", () => {
-
-        it("should make a lowerbound cut on the selection", () => {
-
-          const selection = {from: -8, to: 8};
-          const limit = {from:undefined, to: undefined};
-
-          const lockRangesLowerBoundSample0 = [{from:undefined, to:-8}];
-          const lockRangesLowerBoundSample1 = [{from:undefined, to:-10}, {from: -11, to:-8}, {from: -12, to: -7}];
-          const lockRangesLowerBoundSample2 = [{from:undefined, to:-10}, {from: -12, to: -6}, {from: -11, to:-8}];
-
-          expect(getAvailableRanges(lockRangesLowerBoundSample0, selection, limit)).toEqual([{from:-7, to:selection.to}]);
-          expect(getAvailableRanges(lockRangesLowerBoundSample1, selection, limit)).toEqual([{from:-6, to:selection.to}]);
-          expect(getAvailableRanges(lockRangesLowerBoundSample2, selection, limit)).toEqual([{from:-5, to:selection.to}]);
-
-        })
-      })
-
       describe("and limit completely excludes selection", () => {
 
         it("should return no elements as result of the array", () => {
@@ -116,34 +98,59 @@ describe("test getAvailableRanges", () => {
 
       })
 
-    })
-
-    describe("the tail of a selection", () => {
-
       describe("and there is no limit defined", () => {
 
-        it("should make a upperbound cut on the selection", () => {
+        it("should make a lowerbound cut on the selection", () => {
 
           const selection = {from: -8, to: 8};
           const limit = {from:undefined, to: undefined};
 
-          const lockRangesUpperBoundSample0 = [{from:8, to:undefined}];
-          const lockRangesUpperBoundSample1 = [{from:10, to:undefined}, {from: 8, to:11}, {from: 7, to: 12}];
-          const lockRangesUpperBoundSample2 = [{from:10, to:undefined}, {from: 8, to:11}, {from: 7, to: 11}, {from: 7, to: 12},{from: 7, to: 13}];
-          const lockRangesUpperBoundSample3 = [{from:10, to:undefined}, {from: 6, to: 12}, {from: 8, to:11}];
+          const lockRangesLowerBoundSample0 = [{from:undefined, to:-8}];
+          const lockRangesLowerBoundSample1 = [{from:undefined, to:-10}, {from: -11, to:-8}, {from: -12, to: -7}];
+          const lockRangesLowerBoundSample2 = [{from:undefined, to:-10}, {from: -12, to: -6}, {from: -11, to:-8}];
 
+          expect(getAvailableRanges(lockRangesLowerBoundSample0, selection, limit)).toEqual([{from:-7, to:selection.to}]);
+          expect(getAvailableRanges(lockRangesLowerBoundSample1, selection, limit)).toEqual([{from:-6, to:selection.to}]);
+          expect(getAvailableRanges(lockRangesLowerBoundSample2, selection, limit)).toEqual([{from:-5, to:selection.to}]);
+
+        })
+      })
+
+      describe("and limit cross selection", () => {
+
+        it("should apply a limit cutoff on the result", () => {
+
+          const selection = {from: -8, to: 8};
+
+          const limitSample0 = {from:-9, to: -8};
+          const limitSample1 = {from:-6, to: 6};
+          const limitSample2 = {from:8, to: 9};
           
-          expect(getAvailableRanges(lockRangesUpperBoundSample0, selection, limit)).toEqual([{from:selection.from, to:7}]);
 
-          expect(getAvailableRanges(lockRangesUpperBoundSample1, selection, limit)).toEqual([{from:selection.from, to:6}]);
+          const lockRangesLowerBoundSample0 = [{from:undefined, to:-8}];
+          const lockRangesLowerBoundSample1 = [{from:undefined, to:-10}, {from: -11, to:-8}, {from: -12, to: -7}];
+          const lockRangesLowerBoundSample2 = [{from:undefined, to:-10}, {from: -12, to: -6}, {from: -11, to:-8}];
+
+          expect(getAvailableRanges(lockRangesLowerBoundSample0, selection, limitSample0)).toEqual([]);
+          expect(getAvailableRanges(lockRangesLowerBoundSample0, selection, limitSample1)).toEqual([{from:-6, to:6}]);
+          expect(getAvailableRanges(lockRangesLowerBoundSample0, selection, limitSample2)).toEqual([{from:8, to:8}]);
           
-          expect(getAvailableRanges(lockRangesUpperBoundSample2, selection, limit)).toEqual([{from:selection.from, to:6}]);
-
-          expect(getAvailableRanges(lockRangesUpperBoundSample3, selection, limit)).toEqual([{from:selection.from, to:5}]);
-
+          expect(getAvailableRanges(lockRangesLowerBoundSample1, selection, limitSample0)).toEqual([]);
+          expect(getAvailableRanges(lockRangesLowerBoundSample1, selection, limitSample1)).toEqual([{from:-6, to:6}]);
+          expect(getAvailableRanges(lockRangesLowerBoundSample1, selection, limitSample2)).toEqual([{from:8, to:8}]);
+          
+          
+          expect(getAvailableRanges(lockRangesLowerBoundSample2, selection, limitSample0)).toEqual([]);
+          expect(getAvailableRanges(lockRangesLowerBoundSample2, selection, limitSample1)).toEqual([{from:-5, to:6}]);
+          expect(getAvailableRanges(lockRangesLowerBoundSample2, selection, limitSample2)).toEqual([{from:8, to:8}]);
+          
         })
 
       })
+
+    })
+
+    describe("the tail of a selection", () => {
 
       describe("and limit completely excludes selection", () => {
 
@@ -171,9 +178,87 @@ describe("test getAvailableRanges", () => {
       })
 
       })
+
+      describe("and there is no limit defined", () => {
+
+        it("should make a upperbound cut on the selection", () => {
+
+          const selection = {from: -8, to: 8};
+          const limit = {from:undefined, to: undefined};
+
+          const lockRangesUpperBoundSample0 = [{from:8, to:undefined}];
+          const lockRangesUpperBoundSample1 = [{from:10, to:undefined}, {from: 8, to:11}, {from: 7, to: 12}];
+          const lockRangesUpperBoundSample2 = [{from:10, to:undefined}, {from: 8, to:11}, {from: 7, to: 11}, {from: 7, to: 12},{from: 7, to: 13}];
+          const lockRangesUpperBoundSample3 = [{from:10, to:undefined}, {from: 6, to: 12}, {from: 8, to:11}];
+
+          
+          expect(getAvailableRanges(lockRangesUpperBoundSample0, selection, limit)).toEqual([{from:selection.from, to:7}]);
+
+          expect(getAvailableRanges(lockRangesUpperBoundSample1, selection, limit)).toEqual([{from:selection.from, to:6}]);
+          
+          expect(getAvailableRanges(lockRangesUpperBoundSample2, selection, limit)).toEqual([{from:selection.from, to:6}]);
+
+          expect(getAvailableRanges(lockRangesUpperBoundSample3, selection, limit)).toEqual([{from:selection.from, to:5}]);
+
+        })
+
+      })
+
+
+
+      describe("and limit cross selection", () => {
+
+        it("should apply a limit cutoff on the result", () => {
+
+          const selection = {from: -8, to: 8};
+
+          const limitSample0 = {from:-9, to: -8};
+          const limitSample1 = {from:-6, to: 6};
+          const limitSample2 = {from:8, to: 9};
+
+          const lockRangesUpperBoundSample0 = [{from:8, to:undefined}];
+          const lockRangesUpperBoundSample1 = [{from:10, to:undefined}, {from: 8, to:11}, {from: 7, to: 12}];
+          const lockRangesUpperBoundSample2 = [{from:10, to:undefined}, {from: 8, to:11}, {from: 7, to: 11}, {from: 7, to: 12},{from: 7, to: 13}];
+          const lockRangesUpperBoundSample3 = [{from:10, to:undefined}, {from: 6, to: 12}, {from: 8, to:11}];
+
+          
+          expect(getAvailableRanges(lockRangesUpperBoundSample0, selection, limitSample0)).toEqual([{from:-8, to:-8}]);
+          expect(getAvailableRanges(lockRangesUpperBoundSample0, selection, limitSample1)).toEqual([{from:-6, to:6}]);
+          expect(getAvailableRanges(lockRangesUpperBoundSample0, selection, limitSample2)).toEqual([]);
+
+          expect(getAvailableRanges(lockRangesUpperBoundSample1, selection, limitSample0)).toEqual([{from:-8, to:-8}]);
+          expect(getAvailableRanges(lockRangesUpperBoundSample1, selection, limitSample1)).toEqual([{from:-6, to:6}]);
+          expect(getAvailableRanges(lockRangesUpperBoundSample1, selection, limitSample2)).toEqual([]);
+          
+          expect(getAvailableRanges(lockRangesUpperBoundSample2, selection, limitSample0)).toEqual([{from:-8, to:-8}]);
+          expect(getAvailableRanges(lockRangesUpperBoundSample2, selection, limitSample1)).toEqual([{from:-6, to:6}]);
+          expect(getAvailableRanges(lockRangesUpperBoundSample2, selection, limitSample2)).toEqual([]);
+
+          expect(getAvailableRanges(lockRangesUpperBoundSample3, selection, limitSample0)).toEqual([{from:-8, to:-8}]);
+          expect(getAvailableRanges(lockRangesUpperBoundSample3, selection, limitSample1)).toEqual([{from:-6, to:5}]);
+          expect(getAvailableRanges(lockRangesUpperBoundSample3, selection, limitSample2)).toEqual([]);
+
+        }) 
+      
+      })
     
     describe("the middle of a selection", () => {
       
+      describe("and limit completely excludes selection", () => {
+
+        it("should return no elements as result of the array", () => {
+
+          const selection = {from: -8, to: 8};
+          const limit = {from:-10, to: -9};
+
+          const lockRanges = [{from:-5, to:5}];
+                    
+          expect(getAvailableRanges(lockRanges, selection, limit)).toEqual([]);
+
+        });
+
+      })
+
       describe("and there is no limit defined", () => {
 
         it("should return two new selections as available ranges result", () => {
@@ -189,20 +274,26 @@ describe("test getAvailableRanges", () => {
 
       })
 
-      describe("and limit completely excludes selection", () => {
+      describe("and limit cross selection", () => {
 
-        it("should return no elements as result of the array", () => {
+        it("should apply a limit cutoff on the result", () => {
 
           const selection = {from: -8, to: 8};
-          const limit = {from:-10, to: -9};
+
+          const limitSample0 = {from:-9, to: -8};
+          const limitSample1 = {from:-6, to: 6};
+          const limitSample2 = {from:8, to: 9};
 
           const lockRanges = [{from:-5, to:5}];
                     
-          expect(getAvailableRanges(lockRanges, selection, limit)).toEqual([]);
+          expect(getAvailableRanges(lockRanges, selection, limitSample0)).toEqual([{from:-8, to:-8}]);
+          expect(getAvailableRanges(lockRanges, selection, limitSample1)).toEqual([{from:-6, to:-6},{from: 6, to: 6}]);
+          expect(getAvailableRanges(lockRanges, selection, limitSample2)).toEqual([{from: 8, to: 8}]);
 
-        });
+        })
 
       })
+
     })
 
   });
