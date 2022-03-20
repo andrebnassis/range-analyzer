@@ -1,4 +1,4 @@
-import { getAvailableRanges } from "../../src/service/range_handler";
+import { getAvailableRanges } from "../../service/range_handler";
 describe("test getAvailableRanges", () => {
   
   describe("when lock-ranges does NOT intercept selection", () => {
