@@ -149,3 +149,21 @@ describe("test getAvailableRanges", () => {
   });
 
 });
+
+
+describe("Complex cases", () => {
+
+  it("Infinity selection", () => {
+
+    const selection = {from:undefined, to:undefined};
+
+    const lockRanges = [{from: -10, to: -13}, {from: 50, to: 7}, {from: 3, to: -2}, {from: -50, to:-17}];
+    const limit = {from: -15, to:5 }
+
+
+    expect(getAvailableRanges(lockRanges, selection)).toEqual([{from:undefined, to:-51}, {from:-16, to:-14}, {from:-9,to:-3},{from:4, to:6},{from:51, to:undefined}]);
+    expect(getAvailableRanges(lockRanges, selection, limit)).toEqual([{from:-15, to:-14}, {from:-9,to:-3},{from:4, to:5}]);
+
+  })
+
+})
