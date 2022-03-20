@@ -63,7 +63,11 @@ const result = getAvailableRanges(lockRanges, selection, limit);
 // result: [{from:-15, to:-14}, {from:-9,to:-3},{from:4, to:5}]
 
 ```
+## Playground
 
+There is a visual playground where you can see the library in action without coding.
+
+https://andrebnassis.github.io/range-analyzer-playground/
 
 # CONTRIBUITING
 
