@@ -141,15 +141,13 @@ const getAvailableRanges = (
 
 //Step 5: Sanitize and Sort LockRanges
 
-//Step 5.1: [ALGORITHM IMPROVEMENT] Remove all lockRanges that are inner other lock ranges or are outter the limit range
+//Step 5.1: [ALGORITHM IMPROVEMENT] Remove all lockRanges that are inner other lock ranges
 lockRangesProcessed = lockRangesProcessed.filter((current,_, arr) => {
   
   const completelyReplaceCurrentRangeSearch = arr.filter(range => ((range.from as number) <= (current.from as number)) && ((range.to as number) >= (current.to as number)) );
   const isInnerFromAnotherRange = completelyReplaceCurrentRangeSearch.length > 1;
 
-  const isOutterLimitRange = ((limitProcessed.from as number) >= (current.from as number)) && ((limitProcessed.to as number) <= (current.to as number));
-
-  return !isInnerFromAnotherRange && !isOutterLimitRange;
+  return !isInnerFromAnotherRange
 })
 
 //Step 5.2: Sort LockRanges

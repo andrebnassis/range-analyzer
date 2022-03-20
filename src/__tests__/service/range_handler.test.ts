@@ -166,4 +166,14 @@ describe("Complex cases", () => {
 
   })
 
+  it("algorithm improvement: cut inner ranges", () => {
+
+    const selection = {from: 2, to: 4};
+    const limit = {from:-5, to: 5};
+    const lockRanges = [{from:-7, to: 1},{from:-7, to: 2},{from:-7, to: 3}, {from:-7, to:7}]
+
+    expect(getAvailableRanges(lockRanges, selection, limit)).toEqual([]);
+
+  })
+
 })
