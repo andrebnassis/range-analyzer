@@ -33,7 +33,7 @@ __selection__: It is the target area that you aim to select.
 
 __lockRanges__: It is the areas that cannot be selected. 
 
-__limit__: It is the upper bound and lower bound cuttoff that will be applied after having the **available ranges result**. 
+__limit__: It is the upper bound and lower bound cutoff that will be applied after having the **available ranges result**. 
 
 
 ### Usage example:
