@@ -9,8 +9,8 @@
   ],
   "scripts": {
     "test":"jest",
-    "prebuild": "rimraf dist/",
-    "build": "tsc",
+    "prebuild:lib": "rimraf dist/",
+    "build:lib": "tsc",
     "verdaccio:up": "docker-compose -f verdaccio-docker-compose.yaml up -d",
     "verdaccio:down": "docker-compose -f verdaccio-docker-compose.yaml down -v",
     "preverdaccio:publish": "cross-var $npm_execpath run verdaccio:down && cross-var $npm_execpath run verdaccio:up",

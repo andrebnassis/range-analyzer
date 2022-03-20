@@ -7,7 +7,7 @@ Install the project using `yarn`
 
 ### Build the project locally
 ```bash
-yarn build  #Generate a /dist folder.
+yarn build:lib  #Generate a /dist folder.
 ```
 
 ## Test Library built:
@@ -23,7 +23,7 @@ To test your built package we need to go through 2 steps.
 ### Step1
 #### Method A) Linking the built package to a target project
 
-A.1) After running `yarn build`, on terminal, run:
+A.1) After running `yarn build:lib`, on terminal, run:
 
 `yarn link`
 
