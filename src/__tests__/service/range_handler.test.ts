@@ -24,7 +24,7 @@ describe("test getAvailableRanges", () => {
 
     });
 
-    describe("if defined limit cut selection", () => {
+    describe("if defined limit intercept selection", () => {
     
       it("should return selection cutted by its defined limit", () => {
 
@@ -74,7 +74,7 @@ describe("test getAvailableRanges", () => {
 
   });
 
-  describe("when a lock-range intercepts", () => {
+  describe("when a lock-range intercept", () => {
 
     describe("the head of a selection", () => {
 
@@ -116,7 +116,7 @@ describe("test getAvailableRanges", () => {
         })
       })
 
-      describe("and limit cross selection", () => {
+      describe("and limit intercept selection", () => {
 
         it("should apply a limit cutoff on the result", () => {
 
@@ -206,7 +206,7 @@ describe("test getAvailableRanges", () => {
 
 
 
-      describe("and limit cross selection", () => {
+      describe("and limit intercept selection", () => {
 
         it("should apply a limit cutoff on the result", () => {
 
@@ -274,7 +274,7 @@ describe("test getAvailableRanges", () => {
 
       })
 
-      describe("and limit cross selection", () => {
+      describe("and limit intercept selection", () => {
 
         it("should apply a limit cutoff on the result", () => {
 
